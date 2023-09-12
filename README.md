@@ -1,1 +1,7 @@
-# plugin-asset-web3
+# @roxavn/plugin-asset-web3
+
+## Release
+
+```
+npx standard-version
+```
