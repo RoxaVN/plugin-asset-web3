@@ -1,4 +1,4 @@
-import { Column } from 'typeorm';
+import { Column, Unique } from 'typeorm';
 import { decorate } from '@roxavn/core';
 import { Store } from '@roxavn/module-asset/server';
 
@@ -20,5 +20,7 @@ decorate(
   Store.prototype,
   'web3Address'
 );
+
+decorate([Unique(['web3Address', 'web3NetworkId'])], Store);
 
 export {};
