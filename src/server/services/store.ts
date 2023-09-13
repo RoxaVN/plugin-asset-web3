@@ -15,7 +15,10 @@ export class GetOrCreateStoreWeb3Service extends BaseService {
     super();
   }
 
-  async handle(request: { web3Address: string; web3NetworkId?: string }) {
+  async handle(request: {
+    web3Address: string;
+    web3NetworkId?: string;
+  }): Promise<Store> {
     const result = await this.databaseService.manager
       .createQueryBuilder()
       .insert()
@@ -29,7 +32,7 @@ export class GetOrCreateStoreWeb3Service extends BaseService {
       .returning('*')
       .execute();
 
-    const item = result.generatedMaps[0];
+    const item = result.generatedMaps[0] as Store;
     if (!item.userId) {
       const identity = await this.getIdentityBytypeService.handle({
         subject: request.web3Address.toLowerCase(),
