@@ -1,7 +1,6 @@
 {
-  "myModel": "My model",
   "Meta": {
-    "name": "Sample module",
-    "description": "Sample module"
+    "name": "Plugin asset web3",
+    "description": "Plugin asset web3"
   }
 }
