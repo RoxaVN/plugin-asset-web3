@@ -7,10 +7,10 @@ import {
   GetAssetsApiService,
 } from '@roxavn/module-asset/server';
 import { utils } from '@roxavn/module-web3/base';
-import { GetOrCreateStoreWeb3Service } from '@roxavn/plugin-asset-web3/server';
 
 import { serverModule } from '../module.js';
 import { constants } from '../../base/index.js';
+import { GetOrCreateStoreWeb3Service } from './store.js';
 
 @serverModule.injectable()
 export abstract class ConsumeNftTransferEventService extends BaseService {
