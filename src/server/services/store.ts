@@ -24,6 +24,7 @@ export class GetOrCreateStoreWeb3Service extends BaseService {
       .insert()
       .into(Store)
       .values({
+        name: request.web3Address,
         type: Store.TYPE_PUBLIC,
         web3Address: request.web3Address,
         web3NetworkId: request.web3NetworkId,
