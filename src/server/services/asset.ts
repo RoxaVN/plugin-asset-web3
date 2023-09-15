@@ -1,5 +1,5 @@
 import { BadRequestException, NotFoundException } from '@roxavn/core';
-import { BaseService, serviceContainer } from '@roxavn/core/server';
+import { serviceContainer } from '@roxavn/core/server';
 import {
   CreateAssetService,
   UpdateAssetService,
@@ -7,13 +7,14 @@ import {
   GetAssetsApiService,
 } from '@roxavn/module-asset/server';
 import { utils } from '@roxavn/module-web3/base';
+import { ConsumeWeb3EventService } from '@roxavn/module-web3/server';
 
 import { serverModule } from '../module.js';
 import { constants } from '../../base/index.js';
 import { GetOrCreateStoreWeb3Service } from './store.js';
 
 @serverModule.injectable()
-export abstract class ConsumeNftTransferEventService extends BaseService {
+export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventService {
   abstract getNftAttributes(tokenId: string): Promise<
     Array<{
       name: string;
