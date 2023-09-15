@@ -1,7 +1,7 @@
 import { BaseService, inject } from '@roxavn/core/server';
 import {
   CreateAttributeService,
-  GetAttributesService,
+  GetAllAttributesService,
 } from '@roxavn/module-asset/server';
 import {
   CreateUserApiService,
@@ -24,8 +24,8 @@ export class InstallHook extends BaseService {
     protected createIdentityService: CreateIdentityService,
     @inject(CreateAttributeService)
     protected createAttributeService: CreateAttributeService,
-    @inject(GetAttributesService)
-    protected getAttributesService: GetAttributesService
+    @inject(GetAllAttributesService)
+    protected getAttributesService: GetAllAttributesService
   ) {
     super();
   }
@@ -43,10 +43,10 @@ export class InstallHook extends BaseService {
       });
     }
 
-    const attributes = await this.getAttributesService.handle({
-      ids: [constants.Attributes.NETWORK_ID, constants.Attributes.NFT_ID],
+    const attributesResult = await this.getAttributesService.handle({
+      names: [constants.Attributes.NETWORK_ID, constants.Attributes.NFT_ID],
     });
-    if (!attributes.length) {
+    if (!attributesResult.items.length) {
       await this.createAttributeService.handle({
         name: constants.Attributes.NETWORK_ID,
         type: 'Varchar',
