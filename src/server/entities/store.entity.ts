@@ -10,17 +10,11 @@ declare module '@roxavn/module-asset/server' {
 }
 
 decorate(
-  [Column({ type: 'bigint', nullable: true })],
-  Store.prototype,
-  'web3NetworkId'
-);
-
-decorate(
   [Column({ type: 'text', nullable: true })],
   Store.prototype,
   'web3Address'
 );
 
-decorate([Unique(['web3Address', 'web3NetworkId'])], Store);
+decorate([Unique(['web3Address'])], Store);
 
 export {};

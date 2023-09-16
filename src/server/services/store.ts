@@ -15,10 +15,7 @@ export class GetOrCreateStoreWeb3Service extends BaseService {
     super();
   }
 
-  async handle(request: {
-    web3Address: string;
-    web3NetworkId?: string;
-  }): Promise<Store> {
+  async handle(request: { web3Address: string }): Promise<Store> {
     const result = await this.databaseService.manager
       .createQueryBuilder()
       .insert()
@@ -27,7 +24,6 @@ export class GetOrCreateStoreWeb3Service extends BaseService {
         name: request.web3Address,
         type: Store.TYPE_PUBLIC,
         web3Address: request.web3Address,
-        web3NetworkId: request.web3NetworkId,
       })
       .orIgnore()
       .returning('*')
