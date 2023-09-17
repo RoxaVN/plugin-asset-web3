@@ -41,9 +41,6 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
     const getAssetsApiService =
       await serviceContainer.getAsync(GetAssetsApiService);
 
-    const fromStore = await getOrCreateStoreWeb3Service.handle({
-      web3Address: request.from,
-    });
     const toStore = await getOrCreateStoreWeb3Service.handle({
       web3Address: request.to,
     });
@@ -64,6 +61,9 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
         attributes: nftAttributes,
       });
       if (items.length) {
+        const fromStore = await getOrCreateStoreWeb3Service.handle({
+          web3Address: request.from,
+        });
         const item = items[0];
         if (item.storeId === fromStore.id) {
           await updateAssetService.handle({

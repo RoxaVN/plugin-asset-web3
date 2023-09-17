@@ -4,8 +4,7 @@ import { Store } from '@roxavn/module-asset/server';
 
 declare module '@roxavn/module-asset/server' {
   interface Store {
-    web3Address?: Date;
-    web3NetworkId?: string;
+    web3Address?: string;
   }
 }
 

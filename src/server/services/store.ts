@@ -16,32 +16,39 @@ export class GetOrCreateStoreWeb3Service extends BaseService {
   }
 
   async handle(request: { web3Address: string }): Promise<Store> {
-    const result = await this.databaseService.manager
-      .createQueryBuilder()
-      .insert()
-      .into(Store)
-      .values({
-        name: request.web3Address,
-        type: Store.TYPE_PUBLIC,
-        web3Address: request.web3Address,
-      })
-      .orIgnore()
-      .returning('*')
-      .execute();
-
-    const item = result.generatedMaps[0] as Store;
-    if (!item.userId) {
+    const web3Address = request.web3Address.toLowerCase();
+    const item = await this.databaseService.manager
+      .getRepository(Store)
+      .findOne({
+        where: { web3Address },
+      });
+    if (item) {
+      if (!item.userId) {
+        const identity = await this.getIdentityBytypeService.handle({
+          subject: web3Address,
+          type: constants.identityTypes.WEB3_ADDRESS,
+        });
+        if (identity) {
+          item.userId = identity.userId;
+          await this.databaseService.manager.save(item);
+        }
+      }
+      return item;
+    } else {
+      // create new store
+      const store = new Store();
+      store.web3Address = web3Address;
+      store.name = web3Address;
+      store.type = Store.TYPE_PUBLIC;
       const identity = await this.getIdentityBytypeService.handle({
-        subject: request.web3Address.toLowerCase(),
+        subject: web3Address,
         type: constants.identityTypes.WEB3_ADDRESS,
       });
       if (identity) {
-        await this.databaseService.manager
-          .getRepository(Store)
-          .update({ id: item.id }, { userId: identity.userId });
+        store.userId = identity.userId;
       }
+      await this.databaseService.manager.getRepository(Store).insert(store);
+      return store;
     }
-
-    return item;
   }
 }
