@@ -30,7 +30,7 @@ export class GetOrCreateStoreWeb3Service extends BaseService {
         });
         if (identity) {
           item.userId = identity.userId;
-          await this.databaseService.manager.save(item);
+          await this.databaseService.manager.getRepository(Store).save(item);
         }
       }
       return item;
