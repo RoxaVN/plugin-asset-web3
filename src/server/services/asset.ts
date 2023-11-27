@@ -25,18 +25,13 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
     const getOrCreateStoreWeb3Service = await serviceContainer.getAsync(
       GetOrCreateStoreWeb3Service
     );
-    const createAssetService =
-      await serviceContainer.getAsync(CreateAssetService);
-    const updateAssetService =
-      await serviceContainer.getAsync(UpdateAssetService);
-    const getAssetsApiService =
-      await serviceContainer.getAsync(GetAssetsApiService);
-
     const toStore = await getOrCreateStoreWeb3Service.handle({
       web3Address: request.to,
     });
 
     if (utils.isZero(request.from)) {
+      const createAssetService =
+        await serviceContainer.getAsync(CreateAssetService);
       const attributes = await this.getNftAttributes(request.tokenId);
       await createAssetService.handle({
         storeId: toStore.id,
@@ -47,6 +42,11 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
         },
       });
     } else {
+      const getAssetsApiService =
+        await serviceContainer.getAsync(GetAssetsApiService);
+      const updateAssetService =
+        await serviceContainer.getAsync(UpdateAssetService);
+
       const { items } = await getAssetsApiService.handle({
         filterAttributes: [
           { name: constants.Attributes.NETWORK_ID, value: request.networkId },
