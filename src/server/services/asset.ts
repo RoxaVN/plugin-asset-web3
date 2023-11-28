@@ -48,7 +48,7 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
         await serviceContainer.getAsync(UpdateAssetService);
 
       const { items } = await getAssetsApiService.handle({
-        filterAttributes: [
+        attributeFilters: [
           { name: constants.Attributes.NETWORK_ID, value: request.networkId },
           { name: constants.Attributes.NFT_ID, value: request.tokenId },
         ],
