@@ -1,4 +1,4 @@
-import { BadRequestException, NotFoundException } from '@roxavn/core';
+import { NotFoundException } from '@roxavn/core';
 import { serviceContainer } from '@roxavn/core/server';
 import {
   CreateAssetService,
@@ -54,18 +54,12 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
         ],
       });
       if (items.length) {
-        const fromStore = await getOrCreateStoreWeb3Service.handle({
-          web3Address: request.from,
-        });
         const item = items[0];
-        if (item.storeId === fromStore.id) {
-          await updateAssetService.handle({
-            assetId: item.id,
-            storeId: toStore.id,
-          });
-        } else {
-          throw new BadRequestException();
-        }
+
+        await updateAssetService.handle({
+          assetId: item.id,
+          storeId: toStore.id,
+        });
       } else {
         throw new NotFoundException();
       }
