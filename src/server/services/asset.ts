@@ -20,8 +20,8 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
     from: string;
     to: string;
     tokenId: string;
-    networkId: string;
   }) {
+    const crawler = await this.getCrawler();
     const getOrCreateStoreWeb3Service = await serviceContainer.getAsync(
       GetOrCreateStoreWeb3Service
     );
@@ -38,7 +38,8 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
         attributes: {
           ...attributes,
           [constants.Attributes.NFT_ID]: request.tokenId,
-          [constants.Attributes.NETWORK_ID]: request.networkId,
+          [constants.Attributes.NETWORK_ID]: crawler.contract.networkId,
+          [constants.Attributes.CONTRACT_ADDRESS]: crawler.contract.address,
         },
       });
     } else {
@@ -49,7 +50,14 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
 
       const { items } = await getAssetsApiService.handle({
         attributeFilters: [
-          { name: constants.Attributes.NETWORK_ID, value: request.networkId },
+          {
+            name: constants.Attributes.NETWORK_ID,
+            value: crawler.contract.networkId,
+          },
+          {
+            name: constants.Attributes.CONTRACT_ADDRESS,
+            value: crawler.contract.address,
+          },
           { name: constants.Attributes.NFT_ID, value: request.tokenId },
         ],
       });
@@ -64,5 +72,13 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
         throw new NotFoundException();
       }
     }
+  }
+
+  async consume(event: Record<string, any>) {
+    return this.handleTransferEvent({
+      from: event.from,
+      to: event.to,
+      tokenId: event.tokenId,
+    });
   }
 }
