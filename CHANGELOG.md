@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/RoxaVN/roxavn/compare/v0.1.0...v0.1.1) (2023-12-06)
+
+### Features
+
+- add CONTRACT_ADDRESS attribute ([9218bc7](https://github.com/RoxaVN/roxavn/commit/9218bc7cb6d38f10fb6db356bd80c6661dcb859d))
+- change NFT_ID to TOKEN_ID ([1e926a4](https://github.com/RoxaVN/roxavn/commit/1e926a44f272d3229bd14144e1918a1d0224bfa1))
+- don't check asset store with from store ([8be6537](https://github.com/RoxaVN/roxavn/commit/8be653794b324b4aa9b91372db350208606fa5c0))
+- update with GetAssetsApiService ([b3c623a](https://github.com/RoxaVN/roxavn/commit/b3c623aa7067c8cdfb586c47784d674de99afad9))
+
+### Bug Fixes
+
+- wrong typo ([b23ea31](https://github.com/RoxaVN/roxavn/commit/b23ea312273349691845970e486213209f134d1c))
+
 ## 0.1.0 (2023-11-23)
 
 ### Features
