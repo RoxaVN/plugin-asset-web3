@@ -1,6 +1,6 @@
 export const constants = {
   Attributes: {
-    NFT_ID: 'nftId',
+    TOKEN_ID: 'tokenId',
     NETWORK_ID: 'netowrkId',
     CONTRACT_ADDRESS: 'contractAddress',
   },

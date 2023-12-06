@@ -48,7 +48,7 @@ export class InstallHook extends BaseService {
         type: 'Varchar',
       });
       await this.createAttributeService.handle({
-        name: constants.Attributes.NFT_ID,
+        name: constants.Attributes.TOKEN_ID,
         type: 'Varchar',
       });
     } catch {}

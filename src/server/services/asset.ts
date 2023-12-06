@@ -37,7 +37,7 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
         storeId: toStore.id,
         attributes: {
           ...attributes,
-          [constants.Attributes.NFT_ID]: request.tokenId,
+          [constants.Attributes.TOKEN_ID]: request.tokenId,
           [constants.Attributes.NETWORK_ID]: crawler.contract.networkId,
           [constants.Attributes.CONTRACT_ADDRESS]: crawler.contract.address,
         },
@@ -58,7 +58,7 @@ export abstract class ConsumeNftTransferEventService extends ConsumeWeb3EventSer
             name: constants.Attributes.CONTRACT_ADDRESS,
             value: crawler.contract.address,
           },
-          { name: constants.Attributes.NFT_ID, value: request.tokenId },
+          { name: constants.Attributes.TOKEN_ID, value: request.tokenId },
         ],
       });
       if (items.length) {
